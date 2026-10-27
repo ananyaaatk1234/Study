@@ -48,8 +48,12 @@ def update_machine():
     connection = connection_db()
     cursor = connection.cursor()
 
+    a = input()
+    
     cursor.execute("""UPDATE machines
-        SET """)
+        SET Mach_name = ?
+        WHERE Mach_id = ?""",
+        ("a", "Mach_id"))
 
 
 
