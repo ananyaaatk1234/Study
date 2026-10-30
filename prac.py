@@ -44,16 +44,92 @@ def view_log():
         
     print("Database displayed successfully!")
 
-def update_machine():
+def update_machine(Mach_id, Mach_name = None):
+
     connection = connection_db()
     cursor = connection.cursor()
 
-    a = input()
-    
+        
     cursor.execute("""UPDATE machines
-        SET Mach_name = ?
+        SET Mach_name = COALESCE(?, Mach_name)
         WHERE Mach_id = ?""",
-        ("a", "Mach_id"))
+        (Mach_name, Mach_id))
+
+    print("Database Updated")
+
+def delete_machine(Mach_id):
+
+    connection = connection_db()
+    cursor = connection.cursor()
+
+    cursor.execute("""
+        DELETE FROM machines
+        WHERE Mach_id = ?
+    """, (Mach_id,))
+
+    connection.commit()
+    connection.close()
+
+
+def create_table():
+    connection = connection_db()
+    cursor = connection.cursor()
+    cursor.execute("""CREATE TABLE IF NOT EXISTS admin_log(
+    srno int PRIMARY KEY AUTOINCREMENT,
+    Employee_Name VARCHAR(100),
+    Username int NOT NULL UNIQUE,
+    Password TEXT NOT NULL,
+    Role TEXT NOT NULL;
+    """)
+
+
+
+def add_user():
+    connection = connection_db()
+    cursor = connection.cursor()
+
+    name = input(" ")
+    username = int(input(" ")) 
+    password = input(" ")
+    role = input("")
+    cursor.execute("""INSERT INTO admin_log
+        (name, username, password, role)
+        VALUES (?,?,?,?)""",
+        (name, username, password, role))
+    
+def view_user():
+    connection = connection_db()
+    cursor = connection.cursor()
+    
+    cursor.execute("""SELECT * FROM admin_log""")
+    logs = cursor.fetchall()
+    connection.close()
+    
+    for x in logs:
+        print(x)
+            
+    print("Database displayed successfully!")
+    
+def update_log(role, username):
+    connection = connection_db()
+    cursor = connection.cursor()
+    b = role
+    usern = username
+    cursor.execute("""UPDATE admin_log
+        SET  role = ?
+        WHERE username = ?""",
+        ("b", "usern"))
+
+def delete_user(username):
+    connection = connection_db()
+    cursor = connection.cursor()
+    username = username
+    cursor.execute("""DELETE FROM admin_log WHERE username = ? """, ("username"))
+
+
+
+
+
 
 
 

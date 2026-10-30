@@ -1,0 +1,524 @@
+/* =========================================================
+   DASHBOARD SYSTEM
+   Industrial Maintenance Management
+   ========================================================= */
+
+
+/* ---------- DASHBOARD BACKGROUND ---------- */
+
+.dashboard {
+    min-height: 100vh;
+
+    background:
+        linear-gradient(
+            135deg,
+            #d5e8f1 0%,
+            #c1ced7 45%,
+            #b0b8c6 100%
+        );
+
+    color: #1f2933;
+
+    overflow-x: hidden;
+}
+
+
+/* ---------- TOP NAVIGATION BAR ---------- */
+
+.topbar {
+    height: 76px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 42px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #343a3f,
+            #41484d
+        );
+
+    border-bottom: 4px solid #397fa5;
+
+    box-shadow:
+        0 8px 25px rgba(31, 41, 51, 0.20);
+
+    color: #edf1f3;
+}
+
+
+.topbar h1 {
+    margin: 0;
+
+    font-size: 21px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+}
+
+
+.role-name {
+    padding: 8px 15px;
+
+    border: 1px solid #68737b;
+
+    border-radius: 6px;
+
+    background: #2c3237;
+
+    color: #cbd5da;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.2px;
+
+    text-transform: uppercase;
+}
+
+
+/* ---------- MAIN CONTENT ---------- */
+
+.dashboard-content {
+    max-width: 1400px;
+
+    margin: 0 auto;
+
+    padding: 42px;
+}
+
+
+/* ---------- WELCOME SECTION ---------- */
+
+.welcome-section {
+    margin-bottom: 30px;
+}
+
+
+.welcome-section h2 {
+    margin-bottom: 8px;
+
+    font-size: 31px;
+
+    font-weight: 800;
+
+    letter-spacing: -0.5px;
+
+    color: #22282c;
+}
+
+
+.welcome-section p {
+    color: #555f65;
+
+    font-size: 14px;
+}
+
+
+/* ---------- STAT CARDS ---------- */
+
+.stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 20px;
+
+    margin-bottom: 30px;
+}
+
+
+.stat-card {
+    position: relative;
+
+    padding: 25px;
+
+    min-height: 135px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #f1f4f5,
+            #dce2e5
+       );
+
+    border: 1px solid #aeb7bc;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 10px 25px rgba(31, 41, 51, 0.13);
+
+    overflow: hidden;
+}
+
+
+/* Decorative blue/green line */
+
+.stat-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    height: 4px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #397fa5,
+            #3f8f7b
+        );
+}
+
+
+.stat-card h3 {
+    margin-bottom: 12px;
+
+    color: #59646b;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.2px;
+
+    text-transform: uppercase;
+}
+
+
+.stat-card .number {
+    color: #263238;
+
+    font-size: 32px;
+
+    font-weight: 800;
+}
+
+
+/* ---------- CONTENT CARDS ---------- */
+
+.content-card {
+    padding: 28px;
+
+    margin-bottom: 25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #f2f5f6,
+            #dce2e5
+        );
+
+    border: 1px solid #aeb7bc;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 10px 25px rgba(31, 41, 51, 0.12);
+}
+
+
+.content-card h3 {
+    margin-bottom: 10px;
+
+    color: #293238;
+
+    font-size: 18px;
+
+    font-weight: 800;
+}
+
+
+.content-card p {
+    margin-bottom: 20px;
+
+    color: #626d73;
+
+    font-size: 14px;
+}
+
+
+/* ---------- BUTTONS ---------- */
+
+.btn {
+    display: inline-block;
+
+    padding: 11px 18px;
+
+    margin-right: 8px;
+
+    border: 1px solid transparent;
+
+    border-radius: 6px;
+
+    color: white;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.7px;
+
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 7px 15px rgba(31, 41, 51, 0.20);
+}
+
+
+.btn-blue {
+    background:
+        linear-gradient(
+            135deg,
+            #397fa5,
+            #275f7e
+        );
+
+    border-color: #4b8cac;
+}
+
+
+.btn-green {
+    background:
+        linear-gradient(
+            135deg,
+            #3f8f7b,
+            #327261
+        );
+
+    border-color: #4f9c88;
+}
+
+
+/* =========================================================
+   MACHINE TABLE
+   ========================================================= */
+
+.machine-table-container {
+    overflow-x: auto;
+}
+
+
+.machine-table {
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+
+.machine-table th {
+    padding: 15px;
+
+    text-align: left;
+
+    background: #343a3f;
+
+    color: #dfe5e9;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+}
+
+
+.machine-table td {
+    padding: 14px 15px;
+
+    background: #eef1f2;
+
+    border-bottom: 1px solid #c5ccd0;
+
+    color: #38434a;
+
+    font-size: 13px;
+}
+
+
+.machine-table tr:hover td {
+    background: #e3e8ea;
+}
+
+
+/* =========================================================
+   STATUS BADGES
+   ========================================================= */
+
+.status {
+    display: inline-block;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.6px;
+
+    text-transform: uppercase;
+}
+
+
+.status-good {
+    background: #d6ebe5;
+
+    color: #28705e;
+
+    border: 1px solid #9bcabd;
+}
+
+
+.status-warning {
+    background: #dce8ee;
+
+    color: #397fa5;
+
+    border: 1px solid #a9c5d3;
+}
+
+
+.status-danger {
+    background: #eadadb;
+
+    color: #963f45;
+
+    border: 1px solid #cda4a7;
+}
+
+
+/* =========================================================
+   ROLE-SPECIFIC ACCENTS
+   ========================================================= */
+
+
+/* ---------- EMPLOYEE ---------- */
+
+.employee-page .topbar {
+    border-bottom-color: #397fa5;
+}
+
+.employee-page .stat-card::before {
+    background:
+        linear-gradient(
+            90deg,
+            #275a7a,
+            #397fa5
+        );
+}
+
+
+/* ---------- MANAGER ---------- */
+
+.manager-page .topbar {
+    border-bottom-color: #3f8f7b;
+}
+
+.manager-page .stat-card::before {
+    background:
+        linear-gradient(
+            90deg,
+            #397fa5,
+            #3f8f7b
+        );
+}
+
+
+/* ---------- ADMIN ---------- */
+
+.admin-page .topbar {
+    border-bottom-color: #275a7a;
+}
+
+.admin-page .stat-card::before {
+    background:
+        linear-gradient(
+            90deg,
+            #275a7a,
+            #397fa5,
+            #3f8f7b
+        );
+}
+
+
+/* =========================================================
+   RESPONSIVE DESIGN
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .stats {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .dashboard-content {
+        padding: 30px 25px;
+    }
+
+    .topbar {
+        padding: 0 25px;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-content {
+        padding: 25px 18px;
+    }
+
+    .topbar {
+        height: 65px;
+
+        padding: 0 18px;
+    }
+
+    .topbar h1 {
+        font-size: 16px;
+    }
+
+    .welcome-section h2 {
+        font-size: 25px;
+    }
+
+    .btn {
+        width: 100%;
+
+        margin: 0 0 10px;
+    }
+}

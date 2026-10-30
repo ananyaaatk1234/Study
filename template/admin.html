@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+</head>
+
+<body class="dashboard employee-page">
+
+    <!-- Navigation Bar -->
+    <header class="topbar">
+        <h1>Admin Dashboard</h1>
+        <span class="role-name">Administrator</span>
+    </header>
+
+    <!-- Main Content -->
+    <main class="dashboard-content">
+
+        <!-- Welcome Section -->
+        <section class="welcome-section">
+            <h2>Welcome Back!</h2>
+            <p>Welcome to the Administrator section.</p>
+        </section>
+
+        <!-- Machine Management -->
+        <section class="content-card">
+
+            <h3>Employee Management</h3>
+
+            <p>View and manage Manager - Employee Logins.</p>
+
+            <button class="btn btn-blue">
+                Create Manager Id
+            </button>
+
+            <button class="btn btn-green">
+                Create Employee Id
+            </button>
+
+        </section>
+
+    </main>
+
+</body>
+
+</html>
