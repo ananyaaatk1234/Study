@@ -75,11 +75,11 @@ def create_table():
     connection = connection_db()
     cursor = connection.cursor()
     cursor.execute("""CREATE TABLE IF NOT EXISTS admin_log(
-    srno int PRIMARY KEY AUTOINCREMENT,
+    srno INTEGER PRIMARY KEY AUTOINCREMENT,
     Employee_Name VARCHAR(100),
-    Username int NOT NULL UNIQUE,
+    Username INTEGER NOT NULL UNIQUE,
     Password TEXT NOT NULL,
-    Role TEXT NOT NULL;
+    Role TEXT NOT NULL);
     """)
 
 
@@ -93,7 +93,7 @@ def add_user():
     password = input(" ")
     role = input("")
     cursor.execute("""INSERT INTO admin_log
-        (name, username, password, role)
+        (Employee_Name, Username, Password, Role)
         VALUES (?,?,?,?)""",
         (name, username, password, role))
     

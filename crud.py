@@ -2,9 +2,9 @@ import prac
 
 prac.create_table()
 
-ex = True
+'''ex = True'''
 eb = True
-
+'''
 while ex:
 
 
@@ -42,9 +42,10 @@ while ex:
 
     else:
         print("Invalid Input")
+        '''
 
 while eb == True:
-    user = int(input("To Add Users: Press 1\n To Update Users: Press 2\n To Delete Users: Press 3\n To View Users: Press 4\n"))
+    user = int(input("To Add Users: Press 1\n To Update Users: Press 2\n To Delete Users: Press 3\n To View Users: Press 4\n To Exit: Press 5\n"))
 
     if user == 1:
         prac.add_user()
@@ -55,7 +56,20 @@ while eb == True:
         prac.update_log(role, username)
 
     elif user == 3:
-        usern = int(input(""))
+        usern = input("Select User to be Deleted: \n")
+        prac.delete_user(usern)
+        print("User Deleted.")
+
+    elif user == 4:
+        prac.view_user()
+
+    elif user == 5:
+        eb == False
+
+    else:
+        print("Invalid Input.")
+
+
         
         
 
