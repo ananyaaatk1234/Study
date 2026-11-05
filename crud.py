@@ -2,17 +2,18 @@ import prac
 
 prac.create_table()
 
-'''ex = True'''
+ex = True
 eb = True
-'''
+'''FOR MANAGER/EMPLOYEE PAGE'''
 while ex:
 
 
-    x = int(input("To Add Machines: Press 1\n To View Database: Print 2\n To Update the Status: Press 3\n To Exit: Press 4\n"))
+    x = int(input("To Add Machines: Press 1 \n To View Database: Print 2\n To Update the Status: Press 3\n To Exit: Press 4\n"))
 
     if x == 1:
         mach_count = int(input("No. of Machines to be Added: \n"))
         for i in range(mach_count):
+            print("Enter the Details of Machine {i + 1}:")
             prac.add_machines()
 
     elif x == 2:
@@ -42,8 +43,8 @@ while ex:
 
     else:
         print("Invalid Input")
-        '''
 
+'''FOR ADMIN PAGE'''
 while eb == True:
     user = int(input("To Add Users: Press 1\n To Update Users: Press 2\n To Delete Users: Press 3\n To View Users: Press 4\n To Exit: Press 5\n"))
 
@@ -64,7 +65,7 @@ while eb == True:
         prac.view_user()
 
     elif user == 5:
-        eb == False
+        eb = False
 
     else:
         print("Invalid Input.")

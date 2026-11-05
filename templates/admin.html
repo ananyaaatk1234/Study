@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body class="dashboard admin-page">
+
+    <!-- Navigation Bar -->
+    <header class="topbar">
+        <h1>Admin Dashboard</h1>
+            0
+
+            <a href = "{{url_for('logout')}}" class = "logout-btn">
+                Logout
+            </a>
+    </header>
+
+    <!-- Main Content -->
+    <main class="dashboard-content">
+
+        <!-- Welcome Section -->
+        <section class="welcome-section">
+            <h2>Welcome Back!</h2>
+            <p>Welcome to the Administrator section.</p>
+        </section>
+
+        <!-- Employee Management -->
+        <section class="content-card">
+
+            <h3>Employee Management</h3>
+
+            <p>View and Manage Employee Logins.</p>
+
+             <div class="admin-actions">
+
+                <!-- Create User -->
+                <a href="{{ url_for('create_user') }}"
+                   class="admin-action-card">
+
+                    <span class="action-icon">♙</span>
+
+                    <span class="action-title">Create User</span>
+
+                    <span class="action-description">New account</span>
+
+                </a>
+
+
+                <!-- Manage Users -->
+                <a href="{{ url_for('manage_users') }}"
+                   class="admin-action-card">
+
+                    <span class="action-icon">♧</span>
+
+                    <span class="action-title">Manage Users</span>
+
+                    <span class="action-description">
+                        Edit / promote / delete
+                    </span>
+
+                </a>
+
+
+                <!-- View Logs -->
+                <a href="{{ url_for('system_logs') }}"
+                   class="admin-action-card">
+
+                    <span class="action-icon">▤</span>
+
+                    <span class="action-title">View Logs</span>
+
+                    <span class="action-description">System activity</span>
+
+                </a>
+
+            </div>
+        </section>
+
+    </main>
+
+</body>
+
+</html>
