@@ -10,12 +10,15 @@
           href="{{ url_for('static', filename='dashboard.css') }}">
 </head>
 
-<body class="dashboard employee-page">
+<body class="dashboard manager-page">
 
     <!-- Navigation Bar -->
     <header class="topbar">
         <h1>Manager Dashboard</h1>
-        <span class="role-name">Employee</span>
+
+        <a href = "{{url_for('logout')}}" class = "logout-btn">
+                Logout
+            </a>
     </header>
 
     <!-- Main Content -->

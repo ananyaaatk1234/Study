@@ -225,7 +225,7 @@ body::after {
 h1 {
     text-align: center;
 
-    font-size: 39px;
+    font-size: 28px;
 
     font-weight: 800;
 
@@ -239,7 +239,7 @@ h1 {
 }
 
 
----------- SUBTITLE ---------- */
+/*---------- SUBTITLE ---------- 
 
 .subtitle {
     text-align: center;
@@ -256,7 +256,7 @@ h1 {
 
     margin-bottom: 40px;
 }
-
+*/
 
 /* ---------- FORM ---------- */
 
@@ -280,7 +280,7 @@ label {
 
     text-transform: uppercase;
 
-    color: #d4dade;
+    color: #275a7a;
 }
 
 

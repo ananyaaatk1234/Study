@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 from werkzeug.security import check_password_hash, generate_password_hash
 from functools import wraps
 import prac
@@ -120,6 +120,161 @@ def manager():
 def admin():
     return render_template("admin.html")
 
+@app.route("/create_user", methods = ["GET", "POST"])
+@role_required("admin")
+def create_user():
+    if request.method == "POST":
+        name = request.form["name"]
+        username = request.form["username"]
+        password = request.form["password"]
+        role = request.form["role"]
+
+        message = prac.add_user(name, username, password, role)
+
+        flash(message)
+        return redirect(url_for("create_user"))
+
+    return render_template("create_user.html")
+@app.route("/manage-users")
+@role_required("admin")
+def manage_users():
+    users = prac.view_user()
+
+    return render_template("updateuser.html", users=users)
+
+
+# UPDATE EMPLOYEE DETAILS
+
+@app.route("/update-user", methods=["POST"])
+@role_required("admin")
+def update_user():
+
+    data = request.get_json(silent=True)
+
+    if not data:
+        return jsonify(
+            success=False,
+            message="Invalid request data."
+        ), 400
+
+    username = data.get("username")
+    name = data.get("name", "").strip()
+    role = data.get("role", "").strip().lower()
+
+    if not username or not name:
+        return jsonify(
+            success=False,
+            message="Employee ID and name are required."
+        ), 400
+
+    if role not in ["employee", "manager", "admin"]:
+        return jsonify(
+            success=False,
+            message="Invalid role."
+        ), 400
+
+    message = prac.update_log(
+        username,
+        role=role,
+        name=name
+    )
+
+    if message == "User Updated Successfully":
+        return jsonify(
+            success=True,
+            message="Changes saved successfully!"
+        )
+
+    return jsonify(
+        success=False,
+        message=message
+    ), 400
+
+# DELETE EMPLOYEE
+
+@app.route("/delete-user", methods=["POST"])
+@role_required("admin")
+def delete_user():
+
+    data = request.get_json(silent=True)
+
+    if not data:
+        return jsonify(
+            success=False,
+            message="Invalid request."
+        ), 400
+
+    username = data.get("username")
+
+    if not username:
+        return jsonify(
+            success=False,
+            message="Employee ID is required."
+        ), 400
+
+    # Prevent deleting your own account
+    if str(session.get("username")) == str(username):
+        return jsonify(
+            success=False,
+            message="You cannot delete your own account."
+        ), 400
+
+    connection = prac.connection_db()
+    cursor = connection.cursor()
+
+    try:
+        cursor.execute(
+            "SELECT Role FROM admin_log WHERE Username = ?",
+            (username,)
+        )
+
+        user = cursor.fetchone()
+
+        if user is None:
+            return jsonify(
+                success=False,
+                message="Employee not found."
+            ), 404
+
+        target_role = user[0].strip().lower()
+
+        # Prevent deleting the last admin
+        if target_role == "admin":
+
+            cursor.execute("""
+                SELECT COUNT(*)
+                FROM admin_log
+                WHERE LOWER(Role) = 'admin'
+            """)
+
+            admin_count = cursor.fetchone()[0]
+
+            if admin_count <= 1:
+                return jsonify(
+                    success=False,
+                    message="You cannot delete the last admin account."
+                ), 400
+
+        cursor.execute(
+            "DELETE FROM admin_log WHERE Username = ?",
+            (username,)
+        )
+
+        connection.commit()
+
+        return jsonify(
+            success=True,
+            message="Employee deleted successfully!"
+        )
+
+    finally:
+        connection.close()
+
+@app.route("/system_logs")
+@role_required("admin")
+def system_logs():
+    return "Coming soon!"
+
 @app.route("/logout")
 def logout():
 
@@ -132,4 +287,3 @@ def logout():
 if __name__ == "__main__":
     app.run(debug=True)
 
-    https://chatgpt.com/c/6ae008a2-5a10-83ec-ae80-17fdbd772fb4

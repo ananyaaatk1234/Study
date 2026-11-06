@@ -131,29 +131,54 @@ def view_user():
    
     
     
-def update_log(role, username):
+def update_log(username, role= None,name = None):
     connection = connection_db()
     cursor = connection.cursor()
     role = role.strip().lower()
 
-    if role not in ["employee", "manager", "admin"]:
-            connection.close()
-            return "Invalid "
+    try:
+        if role is not None:
+            role = role.strip().lower()
+
+            if role not in ["employee", "manager", "admin"]:
+                    connection.close()
+                    return "Invalid "
     
-    cursor.execute("""UPDATE admin_log
-        SET  role = ?
-        WHERE username = ?""",
-        (role, username))
-    connection.commit()
-    connection.close()
+        cursor.execute("""UPDATE admin_log
+            SET  Employee_Name = COALESCE(?, Employee_Name)
+            role = COALESCE(?, ROLE),
+            WHERE username = ?""",
+            (name, role, username))
+        connection.commit()
+        if cursor.rowcount > 0:
+            return "User Updated Successfully"
+        else:
+            return "Username Not Found"
+
+    finally:
+        connection.close()
+    
 
 def delete_user(username):
     connection = connection_db()
     cursor = connection.cursor()
+
     username = username
-    cursor.execute("""DELETE FROM admin_log WHERE username = ? """, (username,))
-    connection.commit()
-    connection.close()
+    try:
+
+        cursor.execute("""
+        DELETE FROM admin_log 
+        WHERE username = ? """, (username,))    
+        connection.commit()
+
+        if cursor.rowcount > 0:
+            return "User Deleted Successfully"
+        else:
+            return "Username Not Found"
+
+    finally:
+        connection.close()
+    
 
 
 

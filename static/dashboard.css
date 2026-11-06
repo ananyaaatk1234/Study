@@ -470,7 +470,7 @@ body {
 .action-title {
     font-size: 17px;
     font-weight: 400;
-    color: #f5f7f8;
+    color: #596b76;
 }
 
 .action-description {
@@ -487,3 +487,499 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+
+/* =====================================
+   CREATE USER PAGE
+===================================== */
+
+.create-user-page {
+    font-family: 'Roboto', sans-serif;
+    min-height: 100vh;
+}
+
+/* Main content area */
+
+.create-user-page .dashboard-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 45px 35px;
+}
+
+/* Welcome section */
+
+.create-user-page .welcome-section {
+    margin-bottom: 30px;
+}
+
+.create-user-page .welcome-section h2 {
+    font-size: 25px;
+    font-weight: 700;
+    color: #275a7a;
+    margin-bottom: 8px;
+}
+
+.create-user-page .welcome-section p {
+    font-size: 14px;
+    color: #596873;
+}
+
+/* Form card */
+
+
+/* =====================================
+   CREATE USER FORM CARD
+===================================== */
+
+.create-user-page .create-user-card {
+    position: relative;
+    background: linear-gradient(
+        145deg,
+        #f8fafc 0%,
+        #edf2f6 100%
+    );
+
+    padding: 42px 45px;
+    margin-top: 10px;
+
+    border: 1px solid #cbd6de;
+    border-radius: 14px;
+
+    box-shadow:
+        0 3px 6px rgba(36, 57, 72, 0.04),
+        0 10px 25px rgba(36, 57, 72, 0.08),
+        0 20px 45px rgba(36, 57, 72, 0.04);
+
+    overflow: hidden;
+    transition: box-shadow 0.3s ease,
+                transform 0.3s ease;
+}
+
+/* Top accent line */
+
+.create-user-page .create-user-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 5px;
+
+    background: linear-gradient(
+        90deg,
+        #275a7a,
+        #397fa5,
+        #3f8f7b
+    );
+}
+
+/* Card hover effect */
+
+.create-user-page .create-user-card:hover {
+    box-shadow:
+        0 6px 12px rgba(36, 57, 72, 0.06),
+        0 16px 35px rgba(36, 57, 72, 0.12);
+
+    transform: translateY(-2px);
+}
+
+
+/* =====================================
+   CREATE USER FORM LAYOUT
+===================================== */
+
+.create-user-page .create-user-card {
+    max-width: 720px;
+    margin: 10px auto;
+    padding: 38px 45px;
+}
+
+/* Form heading */
+
+.create-user-page .form-heading {
+    margin-bottom: 30px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #d5dfe5;
+}
+
+.create-user-page .form-heading h3 {
+    color: #275a7a;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 7px;
+}
+
+.create-user-page .form-heading p {
+    color: #71808b;
+    font-size: 13px;
+}
+
+/* Vertical form layout */
+
+.create-user-page .create-user-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Each label and input group */
+
+.create-user-page .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Labels */
+
+.create-user-page .form-group label {
+    color: #275a7a;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Input and dropdown fields */
+
+.create-user-page .form-group input,
+.create-user-page .form-group select {
+    width: 100%;
+    height: 46px;
+    padding: 0 14px;
+
+    background: #ffffff;
+    border: 1px solid #c5d2da;
+    border-radius: 7px;
+
+    color: #344b5a;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+
+    outline: none;
+    transition: all 0.25s ease;
+}
+
+/* Placeholder text */
+
+.create-user-page .form-group input::placeholder {
+    color: #a0abb3;
+}
+
+/* Focus effect */
+
+.create-user-page .form-group input:focus,
+.create-user-page .form-group select:focus {
+    border-color: #397fa5;
+    box-shadow: 0 0 0 3px rgba(57, 127, 165, 0.12);
+}
+
+/* Create account button */
+
+.create-user-page .create-account-btn {
+    width: 100%;
+    height: 48px;
+    margin-top: 10px;
+
+    border: none;
+    border-radius: 7px;
+
+    background: linear-gradient(135deg, #326b8f, #275a7a);
+    color: #ffffff;
+
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.7px;
+
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.create-user-page .create-account-btn:hover {
+    background: linear-gradient(135deg, #275a7a, #204b66);
+    box-shadow: 0 5px 12px rgba(39, 90, 122, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Feedback message */
+
+.create-user-page .form-message {
+    margin-top: 18px;
+    color: #3f8f7b;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Mobile responsiveness */
+
+@media (max-width: 600px) {
+    .create-user-page .create-user-card {
+        padding: 25px 20px;
+    }
+}
+
+/* UPDATE USER PAGE */
+
+.update-user-page .content-card {
+    margin-top: 25px;
+    padding: 28px;
+    overflow-x: auto;
+}
+
+.update-user-page .search-container {
+    margin-bottom: 24px;
+}
+
+.update-user-page .search-container input {
+    width: 100%;
+    max-width: 450px;
+    padding: 13px 16px;
+    border: 1px solid #b8c7d1;
+    border-radius: 8px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    outline: none;
+}
+
+.update-user-page .search-container input:focus {
+    border-color: #326b8f;
+    box-shadow: 0 0 0 3px rgba(50, 107, 143, 0.12);
+}
+
+.update-user-page .employee-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+}
+
+.update-user-page .employee-table th,
+.update-user-page .employee-table td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid #d8e0e5;
+}
+
+.update-user-page .employee-table th {
+    background: #e8eef2;
+    color: #275a7a;
+    font-weight: 600;
+}
+
+.update-user-page .employee-table td {
+    color: #41484d;
+}
+
+.update-user-page .employee-table tbody tr:hover {
+    background: #f1f6f8;
+}
+
+.update-user-page .view-user-btn {
+    padding: 9px 16px;
+    border: none;
+    border-radius: 6px;
+    background: #326b8f;
+    color: white;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+}
+
+.update-user-page .view-user-btn:hover {
+    background: #275a7a;
+}
+
+
+/* EMPLOYEE DETAILS MODAL */
+
+.update-user-page .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+    background: rgba(25, 35, 45, 0.55);
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+}
+
+.update-user-page .modal-content {
+    position: relative;
+    width: 100%;
+    max-width: 450px;
+
+    background: #edf2f5;
+    padding: 35px;
+    border-radius: 12px;
+
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.2);
+}
+
+.update-user-page .modal-content h2 {
+    color: #275a7a;
+    margin: 0 0 25px;
+}
+
+.update-user-page .close-modal {
+    position: absolute;
+    top: 2px;
+    right: 15px;
+
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 50%;
+
+    background: #c94b4b;
+    color: white;
+    font-size: 23px;
+    cursor: pointer;
+}
+
+.update-user-page .modal-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.update-user-page .modal-field label {
+    color: #17374b;
+    font-weight: 600;
+}
+
+.update-user-page .modal-field input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    border: 1px solid #c3cdd4;
+    border-radius: 7px;
+    background: #e1e7eb;
+    color: #344b5a;
+    font-family: 'Roboto', sans-serif;
+}
+
+.update-user-page .modal-field select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    border: 1px solid #c3cdd4;
+    border-radius: 7px;
+    background: #e1e7eb;
+    color: #344b5a;
+    font-family: 'Roboto', sans-serif;
+
+}
+.update-user-page .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 25px;
+    
+}
+
+.update-user-page .btn-red {
+    background: #c94b4b;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* EMPLOYEE NAME AND ACTION ICONS */
+
+.update-user-page .employee-name-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.update-user-page .employee-icon-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.update-user-page .icon-btn {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 19px;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.update-user-page .edit-icon {
+    background: #e3edf4;
+    color: #326b8f;
+}
+
+.update-user-page .edit-icon:hover {
+    background: #cbdde9;
+    transform: translateY(-1px);
+}
+
+.update-user-page .delete-icon {
+    background: #e3edf4;
+    color: #b6caf0;
+}
+
+.update-user-page .delete-icon:hover {
+    background: #f0cccc;
+    transform: translateY(-1px);
+}
+/* Delete confirmation modal */
+
+.delete-modal-content {
+    max-width: 430px;
+}
+
+.delete-modal-content h2 {
+    color: #275a7a;
+    margin-bottom: 18px;
+}
+
+.delete-employee-info {
+    background: #edf2f5;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin: 15px 0;
+    color: #40515e;
+}
+
+.delete-employee-info p {
+    margin: 6px 0;
+}
+
+.delete-warning {
+    color: #c94b4b;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+.btn-green {
+    background: #3f8f7b;
+    color: white;
+    border: none;
+}
+
+.btn-red {
+    background: #c94b4b;
+    color: white;
+    border: none;
+}
+
+.btn-green:hover {
+    background: #327765;
+}
+
+.btn-red:hover {
+    background: #ad3939;
+}
+
+

@@ -1,0 +1,435 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Employee ID</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='dashboard.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+</head>
+
+<body class="dashboard admin-page update-user-page">
+
+<header class="topbar">
+    <h1>Update Employee ID</h1>
+
+    <div class="topbar-right">
+        <a href="{{ url_for('admin') }}" class="logout-btn">
+            Back to Dashboard
+        </a>
+    </div>
+</header>
+
+<main class="dashboard-content">
+
+    <section class="welcome-section">
+        <h2>Manage Employees</h2>
+        <p>Search for an employee using their name or employee ID.</p>
+    </section>
+
+    <section class="content-card">
+
+        <div class="search-container">
+            <input
+                type="text"
+                id="employeeSearch"
+                placeholder="Search by employee name or ID..."
+            >
+        </div>
+
+        <div class="table-container">
+            <table class="employee-table">
+
+                <thead>
+                    <tr>
+                        <th>Employee ID</th>
+                        <th>Employee Name</th>
+                        <th>Role</th>
+                    </tr>
+                </thead>
+
+                
+                <tbody id="employeeTableBody">
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user[2] }}</td>
+                        <td>{{ user[1] }}</td>
+                        <td>{{ user[3]|title }}</td>
+
+                        <td>
+                            <div class="employee-icon-actions">
+
+                                <button
+                                    type="button"
+                                    class="icon-btn edit-icon"
+                                    title="Edit employee"
+                                    data-id="{{ user[2] }}"
+                                    data-name="{{ user[1] }}"
+                                    data-role="{{ user[3] }}"
+                                >
+                                    ✎
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="icon-btn delete-icon"
+                                    title="Delete employee"
+                                    data-id="{{ user[2] }}"
+                                    data-name="{{ user[1] }}"
+                                >
+                                
+                                    🗑️
+                                </button>
+
+                            </div>
+                        </td>
+                    </tr>
+
+                    {% else %}
+                    <tr>
+                        <td colspan="4">No employees registered yet.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- EMPLOYEE DETAILS MODAL -->
+
+
+<div id="employeeModal" class="modal">
+    <div class="modal-content">
+
+        <button type="button" class="close-modal" id="closeModal">
+            &times;
+        </button>
+
+        <h2>Edit Employee Details</h2>
+
+        <div class="modal-field">
+            <label for="modalName">Employee Name</label>
+            <input type="text" id="modalName">
+        </div>
+
+        <div class="modal-field">
+            <label for="modalId">Employee ID</label>
+            <input type="text" id="modalId" readonly>
+        </div>
+
+        <div class="modal-field">
+            <label for="modalRoleSelect">Role</label>
+            <select id="modalRoleSelect">
+                <option value="employee">Employee</option>
+                <option value="manager">Manager</option>
+                <option value="admin">Admin</option>
+            </select>
+        </div>
+
+        <div class="modal-actions">
+            <button type="button" id="cancelEditBtn" class="btn btn-red">
+                Cancel
+            </button>
+
+            <button type="button" id="saveUserBtn"
+                    class="btn btn-blue" disabled>
+                Save Changes
+            </button>
+        </div>
+
+    </div>
+</div>
+
+<!-- DELETE CONFIRMATION MODAL -->
+<div id="deleteModal" class="modal">
+
+    <div class="modal-content delete-modal-content">
+
+        <button type="button"
+                class="close-modal"
+                id="closeDeleteModal">
+            &times;
+        </button>
+
+        <h2>Confirm Deletion</h2>
+
+        <p>Are you sure you want to delete this employee?</p>
+
+        <div class="delete-employee-info">
+            <p><strong>Employee:</strong> <span id="deleteEmployeeName"></span></p>
+            <p><strong>Employee ID:</strong> <span id="deleteEmployeeId"></span></p>
+        </div>
+
+        <p class="delete-warning">
+            This action cannot be undone.
+        </p>
+
+        <div class="modal-actions">
+
+            <button type="button"
+                    id="cancelDeleteBtn"
+                    class="btn btn-green">
+                No, Cancel
+            </button>
+
+            <button type="button"
+                    id="confirmDeleteBtn"
+                    class="btn btn-red">
+                Yes, Delete
+            </button>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+const searchInput = document.getElementById("employeeSearch");
+const tableBody = document.getElementById("employeeTableBody");
+
+const modal = document.getElementById("employeeModal");
+const closeModal = document.getElementById("closeModal");
+
+const modalName = document.getElementById("modalName");
+const modalId = document.getElementById("modalId");
+const modalRoleSelect = document.getElementById("modalRoleSelect");
+
+const saveUserBtn = document.getElementById("saveUserBtn");
+const cancelEditBtn = document.getElementById("cancelEditBtn");
+
+let originalName = "";
+let originalRole = "";
+
+
+// 1. Search employees
+searchInput.addEventListener("input", function () {
+    const searchValue = this.value.toLowerCase();
+
+    tableBody.querySelectorAll("tr").forEach(function (row) {
+        row.style.display = row.textContent.toLowerCase().includes(searchValue)
+            ? ""
+            : "none";
+    });
+});
+
+
+// 2. Open edit modal
+document.querySelectorAll(".edit-icon").forEach(function (button) {
+    button.addEventListener("click", function () {
+        modalId.value = this.dataset.id;
+        modalName.value = this.dataset.name;
+        modalRoleSelect.value = this.dataset.role.toLowerCase();
+
+        originalName = this.dataset.name;
+        originalRole = this.dataset.role.toLowerCase();
+
+        saveUserBtn.disabled = true;
+        modal.style.display = "flex";
+    });
+});
+
+
+// 3. Check for changes
+function checkForChanges() {
+    const nameChanged = modalName.value.trim() !== originalName;
+    const roleChanged = modalRoleSelect.value !== originalRole;
+    const validName = modalName.value.trim().length > 0;
+
+    saveUserBtn.disabled = !(validName && (nameChanged || roleChanged));
+}
+
+modalName.addEventListener("input", checkForChanges);
+modalRoleSelect.addEventListener("change", checkForChanges);
+
+
+// 4. Save employee changes to Flask
+saveUserBtn.addEventListener("click", async function () {
+    const username = modalId.value;
+    const name = modalName.value.trim();
+    const role = modalRoleSelect.value;
+
+    saveUserBtn.disabled = true;
+    saveUserBtn.textContent = "Saving...";
+
+    try {
+        const response = await fetch("/update-user", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                username: username,
+                name: name,
+                role: role
+            })
+        });
+
+        const responseText = await response.text();
+
+            console.log("Flask response:", responseText);
+
+            let result;
+
+            try {
+                result = JSON.parse(responseText);
+            } catch (error) {
+                throw new Error("Flask returned an unexpected response. Check the terminal.");
+            }
+
+        if (!response.ok || !result.success) {
+            throw new Error(result.message || "Could not update employee.");
+        }
+
+        // Update the employee row without refreshing the page
+        const editButton = document.querySelector(
+            `.edit-icon[data-id="${CSS.escape(username)}"]`
+        );
+
+        const row = editButton.closest("tr");
+
+        row.cells[1].textContent = name;
+        row.cells[2].textContent =
+            role.charAt(0).toUpperCase() + role.slice(1);
+
+        // Update the button's stored details
+        editButton.dataset.name = name;
+        editButton.dataset.role = role;
+
+        // Update delete button's stored name too
+        const deleteButton = row.querySelector(".delete-icon");
+        deleteButton.dataset.name = name;
+
+        modal.style.display = "none";
+        alert("Changes saved successfully!");
+
+    } catch (error) {
+        alert("Error: " + error.message);
+    } finally {
+        saveUserBtn.textContent = "Save Changes";
+        checkForChanges();
+    }
+});
+
+
+// 5. Delete employee
+// Delete confirmation modal
+const deleteModal = document.getElementById("deleteModal");
+const deleteEmployeeName = document.getElementById("deleteEmployeeName");
+const deleteEmployeeId = document.getElementById("deleteEmployeeId");
+
+const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
+const cancelDeleteBtn = document.getElementById("cancelDeleteBtn");
+const closeDeleteModal = document.getElementById("closeDeleteModal");
+
+let selectedDeleteButton = null;
+
+
+// Open confirmation popup
+document.querySelectorAll(".delete-icon").forEach(function (button) {
+
+    button.addEventListener("click", function () {
+
+        selectedDeleteButton = this;
+
+        deleteEmployeeName.textContent = this.dataset.name;
+        deleteEmployeeId.textContent = this.dataset.id;
+
+        deleteModal.style.display = "flex";
+    });
+
+});
+
+
+// Cancel deletion
+function closeDeletePopup() {
+    deleteModal.style.display = "none";
+    selectedDeleteButton = null;
+}
+
+cancelDeleteBtn.addEventListener("click", closeDeletePopup);
+closeDeleteModal.addEventListener("click", closeDeletePopup);
+
+
+// Close when clicking outside
+deleteModal.addEventListener("click", function (event) {
+    if (event.target === deleteModal) {
+        closeDeletePopup();
+    }
+});
+
+
+// Confirm deletion
+confirmDeleteBtn.addEventListener("click", async function () {
+
+    if (!selectedDeleteButton) return;
+
+    const deleteButton = selectedDeleteButton;
+    const username = deleteButton.dataset.id;
+
+    confirmDeleteBtn.disabled = true;
+    confirmDeleteBtn.textContent = "Deleting...";
+
+    try {
+        const response = await fetch("/delete-user", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                username: username
+            })
+        });
+
+        const result = await response.json();
+
+        if (!response.ok || !result.success) {
+            throw new Error(result.message || "Could not delete employee.");
+        }
+
+        deleteButton.closest("tr").remove();
+
+        closeDeletePopup();
+
+        alert("Employee deleted successfully!");
+
+    } catch (error) {
+        alert("Error: " + error.message);
+
+    } finally {
+        confirmDeleteBtn.disabled = false;
+        confirmDeleteBtn.textContent = "Yes, Delete";
+    }
+
+});
+
+
+// 6. Close modal
+function hideModal() {
+    modal.style.display = "none";
+}
+
+closeModal.addEventListener("click", hideModal);
+cancelEditBtn.addEventListener("click", hideModal);
+
+modal.addEventListener("click", function (event) {
+    if (event.target === modal) {
+        hideModal();
+    }
+});
+
+
+</script>
+
+</body>
+</html>
