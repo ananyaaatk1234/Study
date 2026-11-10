@@ -131,25 +131,30 @@ def view_user():
    
     
     
-def update_log(username, role= None,name = None):
+
+def update_log(username, role=None, name=None):
+
     connection = connection_db()
     cursor = connection.cursor()
-    role = role.strip().lower()
 
     try:
+        # Validate role only if a role was provided
         if role is not None:
             role = role.strip().lower()
 
             if role not in ["employee", "manager", "admin"]:
-                    connection.close()
-                    return "Invalid "
-    
-        cursor.execute("""UPDATE admin_log
-            SET  Employee_Name = COALESCE(?, Employee_Name)
-            role = COALESCE(?, ROLE),
-            WHERE username = ?""",
-            (name, role, username))
+                return "Invalid Role"
+
+        # Update employee details
+        cursor.execute("""
+            UPDATE admin_log
+            SET Employee_Name = COALESCE(?, Employee_Name),
+                Role = COALESCE(?, Role)
+            WHERE Username = ?
+        """, (name, role, username))
+
         connection.commit()
+
         if cursor.rowcount > 0:
             return "User Updated Successfully"
         else:
@@ -157,6 +162,7 @@ def update_log(username, role= None,name = None):
 
     finally:
         connection.close()
+
     
 
 def delete_user(username):
