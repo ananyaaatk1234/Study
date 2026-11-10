@@ -72,5 +72,4 @@ while eb == True:
 
 
         
-        
-
+https://chatgpt.com/c/6ae008a2-5a10-83ec-ae80-17fdbd772fb4

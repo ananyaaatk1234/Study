@@ -12,6 +12,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap"
           rel="stylesheet">
 </head>
+<!-- Success / Error Notification -->
+<div id="notification" class="notification">
+    <span id="notificationIcon"></span>
+    <span id="notificationMessage"></span>
+
+    <button type="button" id="closeNotification">
+        &times;
+    </button>
+</div>
 
 <body class="dashboard admin-page update-user-page">
 
@@ -264,7 +273,7 @@ saveUserBtn.addEventListener("click", async function () {
 
     try {
         const response = await fetch("/update-user", {
-            method: "POST",
+            method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
             },
@@ -382,7 +391,7 @@ confirmDeleteBtn.addEventListener("click", async function () {
 
     try {
         const response = await fetch("/delete-user", {
-            method: "POST",
+            method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
             },

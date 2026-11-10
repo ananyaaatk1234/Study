@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.secret_key = "change-this-to-a-long-random-secret"
 
 
-@app.route("/", methods = ["GET", "POST"])
+@app.route("/", methods = ["GET", "POST", "PATCH", "DELETE"])
 def login():
     if request.method == "POST":
 
@@ -120,7 +120,7 @@ def manager():
 def admin():
     return render_template("admin.html")
 
-@app.route("/create_user", methods = ["GET", "POST"])
+@app.route("/create_user", methods = ["POST"])
 @role_required("admin")
 def create_user():
     if request.method == "POST":
@@ -135,7 +135,7 @@ def create_user():
         return redirect(url_for("create_user"))
 
     return render_template("create_user.html")
-@app.route("/manage-users")
+@app.route("/manage-users", methods = ["GET"])
 @role_required("admin")
 def manage_users():
     users = prac.view_user()
@@ -143,9 +143,9 @@ def manage_users():
     return render_template("updateuser.html", users=users)
 
 
-# UPDATE EMPLOYEE DETAILS
+# UPDATE EMPLOYEE DETAILS(use patch)
 
-@app.route("/update-user", methods=["POST"])
+@app.route("/update-user", methods=["PATCH"])
 @role_required("admin")
 def update_user():
 
@@ -190,9 +190,9 @@ def update_user():
         message=message
     ), 400
 
-# DELETE EMPLOYEE
+# DELETE EMPLOYEE(use delete)https merthodfs
 
-@app.route("/delete-user", methods=["POST"])
+@app.route("/delete-user", methods=["DELETE"])
 @role_required("admin")
 def delete_user():
 
